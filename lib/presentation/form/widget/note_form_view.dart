@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/application/note/form/note_form_bloc.dart';
 import 'package:note_app/application/note/note_fetch_bloc.dart';
-import 'package:note_app/core/app_routes.dart';
 
 class NoteFormView extends StatelessWidget {
   const NoteFormView({super.key});
@@ -56,7 +55,7 @@ class NoteFormView extends StatelessWidget {
                       .read<NoteFormBloc>()
                       .add(NoteFormEvent.addNoteButtonPressed());
                 },
-                child: Text("Add Note"))
+                child: Text("Add Notes"))
           ],
         );
       },
