@@ -49,3 +49,28 @@ platform :android do
     )
   end
 end
+
+
+
+  desc "Deploy the app to Google Play Console"
+  lane :deploy_to_playstore do
+    # Debugging to ensure .env values are loaded
+    puts "DEBUG: ENV['PLAY_STORE_JSON_KEY']: #{ENV['PLAY_STORE_JSON_KEY']}"
+    puts "DEBUG: ENV['TRACK']: #{ENV['TRACK']}"
+
+    # Build the APK/AAB
+    sh "flutter build appbundle" # Build the Android App Bundle (AAB)
+
+    # Deploy to Google Play Console
+    supply(
+      json_key: ENV['PLAY_STORE_JSON_KEY'],      # Path to your service account JSON key
+      package_name: "com.example.yourapp",      # Replace with your app's package name
+      track: ENV['TRACK'],                      # Release track: production, beta, alpha, etc.
+      skip_upload_apk: true,                    # Skip uploading APKs if using AABs
+      skip_upload_metadata: false,              # Include metadata if required
+      skip_upload_images: false,                # Include screenshots if required
+      skip_upload_changelogs: false,            # Include changelogs if required
+      aab: "../build/app/outputs/flutter-apk/app-release.aab" # Path to your AAB file
+    )
+  end
+end
