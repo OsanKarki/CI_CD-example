@@ -1,0 +1,51 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+require 'dotenv' # Correctly requiring the dotenv gem
+Dotenv.load # Loading the .env file
+
+default_platform(:android)
+
+platform :android do
+  desc "Distribute the app to Firebase App Distribution"
+  sh "flutter build apk"
+  lane :deploy_to_firebase do
+    # Debugging to ensure .env values are loaded
+    puts "DEBUG: ENV['FIREBASE_APP_ID']: #{ENV['FIREBASE_APP_ID']}"
+    puts "DEBUG: ENV['FIREBASE_CLI_TOKEN']: #{ENV['FIREBASE_CLI_TOKEN']}"
+
+    # Prompt for release notes
+    puts "Enter release notes for this build (type 'done' on a new line to finish):"
+    release_notes = []
+    loop do
+      input = STDIN.gets.strip
+      break if input.downcase == 'done' # End input when the user types "done"
+      release_notes << input
+    end
+
+    # Format the release notes as a numbered list
+    formatted_release_notes = release_notes.each_with_index.map { |note, index| "#{index + 1}. #{note}" }.join("\n")
+
+    # Firebase App Distribution
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID"], # Accessing environment variables correctly
+      groups: "tester",
+      release_notes: formatted_release_notes,
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"], # Correctly referencing the environment variable
+      android_artifact_path: "../build/app/outputs/flutter-apk/app-release.apk",
+      android_artifact_type: "APK",
+      debug: true
+    )
+  end
+end
