@@ -16,6 +16,8 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'application/auth/auth_form/auth_form_bloc.dart' as _i429;
 import 'application/note/form/note_form_bloc.dart' as _i861;
 import 'application/note/note_fetch_bloc.dart' as _i561;
+import 'core/hive_service.dart' as _i652;
+import 'core/network_info.dart' as _i364;
 import 'domain/auth/i_auth_facade.dart' as _i878;
 import 'domain/form/i_note_add_form_facade.dart' as _i501;
 import 'domain/note/i_note_facade.dart' as _i96;
@@ -44,18 +46,24 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.firebaseFireStore,
       preResolve: true,
     );
-    gh.lazySingleton<_i96.INoteFacade>(
-        () => _i336.FireBaseNoteFetchFacade(gh<_i974.FirebaseFirestore>()));
     gh.lazySingleton<_i501.INoteAddFormFacade>(
-        () => _i546.FirebaseNoteAddFacade(gh<_i974.FirebaseFirestore>()));
-    gh.factory<_i861.NoteFormBloc>(
-        () => _i861.NoteFormBloc(gh<_i501.INoteAddFormFacade>()));
-    gh.factory<_i561.NoteFetchBloc>(
-        () => _i561.NoteFetchBloc(gh<_i96.INoteFacade>()));
+        () => _i546.FirebaseNoteAddFacade(
+              gh<_i974.FirebaseFirestore>(),
+              gh<_i364.NetworkInfo>(),
+            ));
+    gh.lazySingleton<_i96.INoteFacade>(() => _i336.FireBaseNoteFetchFacade(
+          gh<_i974.FirebaseFirestore>(),
+          gh<_i652.HiveService>(),
+          gh<_i364.NetworkInfo>(),
+        ));
     gh.lazySingleton<_i878.IAuthFacade>(
         () => _i471.FirebaseAuthFacade(gh<_i59.FirebaseAuth>()));
     gh.factory<_i429.AuthFormBloc>(
         () => _i429.AuthFormBloc(gh<_i878.IAuthFacade>()));
+    gh.factory<_i861.NoteFormBloc>(
+        () => _i861.NoteFormBloc(gh<_i501.INoteAddFormFacade>()));
+    gh.factory<_i561.NoteFetchBloc>(
+        () => _i561.NoteFetchBloc(gh<_i96.INoteFacade>()));
     return this;
   }
 }

@@ -72,5 +72,5 @@ end
       skip_upload_changelogs: false,            # Include changelogs if required
       aab: "../build/app/outputs/flutter-apk/app-release.aab" # Path to your AAB file
     )
-  end
+
 end

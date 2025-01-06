@@ -20,7 +20,19 @@ class NoteView extends StatelessWidget {
                 listNote.length,
                 (index) {
                   final note = listNote[index];
-                  return Text(note.description);
+                  return Column(
+                    children: [
+                      Text(note.title),
+                      Text(note.description),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Divider(),
+                      SizedBox(
+                        height: 5,
+                      ),
+                    ],
+                  );
                 },
               ),
             );

@@ -13,6 +13,17 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
+### deploy_to_playstore
+
+```sh
+[bundle exec] fastlane deploy_to_playstore
+```
+
+Deploy the app to Google Play Console
+
+----
+
+
 ## Android
 
 ### android deploy_to_firebase

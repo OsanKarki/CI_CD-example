@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive_flutter/adapters.dart';
 
 part 'note_fetch_model.freezed.dart';
-
 part 'note_fetch_model.g.dart';
 
+@HiveType(typeId: 0)
 @freezed
 class NoteModel with _$NoteModel {
   const factory NoteModel({
@@ -12,9 +13,10 @@ class NoteModel with _$NoteModel {
         name: "created_time",
         fromJson: _timestampToDateTime,
         toJson: _dateTimeToTimestamp)
+    @HiveField(0)
     required DateTime time,
-    required String description,
-    required String title,
+    @HiveField(1) required String description,
+    @HiveField(2) required String title,
   }) = _NoteModel;
 
   factory NoteModel.fromJson(Map<String, dynamic> json) =>

@@ -24,8 +24,11 @@ mixin _$NoteModel {
       name: "created_time",
       fromJson: _timestampToDateTime,
       toJson: _dateTimeToTimestamp)
+  @HiveField(0)
   DateTime get time => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get description => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get title => throw _privateConstructorUsedError;
 
   /// Serializes this NoteModel to a JSON map.
@@ -48,9 +51,10 @@ abstract class $NoteModelCopyWith<$Res> {
           name: "created_time",
           fromJson: _timestampToDateTime,
           toJson: _dateTimeToTimestamp)
+      @HiveField(0)
       DateTime time,
-      String description,
-      String title});
+      @HiveField(1) String description,
+      @HiveField(2) String title});
 }
 
 /// @nodoc
@@ -102,9 +106,10 @@ abstract class _$$NoteModelImplCopyWith<$Res>
           name: "created_time",
           fromJson: _timestampToDateTime,
           toJson: _dateTimeToTimestamp)
+      @HiveField(0)
       DateTime time,
-      String description,
-      String title});
+      @HiveField(1) String description,
+      @HiveField(2) String title});
 }
 
 /// @nodoc
@@ -149,9 +154,10 @@ class _$NoteModelImpl implements _NoteModel {
           name: "created_time",
           fromJson: _timestampToDateTime,
           toJson: _dateTimeToTimestamp)
+      @HiveField(0)
       required this.time,
-      required this.description,
-      required this.title});
+      @HiveField(1) required this.description,
+      @HiveField(2) required this.title});
 
   factory _$NoteModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$NoteModelImplFromJson(json);
@@ -161,10 +167,13 @@ class _$NoteModelImpl implements _NoteModel {
       name: "created_time",
       fromJson: _timestampToDateTime,
       toJson: _dateTimeToTimestamp)
+  @HiveField(0)
   final DateTime time;
   @override
+  @HiveField(1)
   final String description;
   @override
+  @HiveField(2)
   final String title;
 
   @override
@@ -209,9 +218,10 @@ abstract class _NoteModel implements NoteModel {
           name: "created_time",
           fromJson: _timestampToDateTime,
           toJson: _dateTimeToTimestamp)
+      @HiveField(0)
       required final DateTime time,
-      required final String description,
-      required final String title}) = _$NoteModelImpl;
+      @HiveField(1) required final String description,
+      @HiveField(2) required final String title}) = _$NoteModelImpl;
 
   factory _NoteModel.fromJson(Map<String, dynamic> json) =
       _$NoteModelImpl.fromJson;
@@ -221,10 +231,13 @@ abstract class _NoteModel implements NoteModel {
       name: "created_time",
       fromJson: _timestampToDateTime,
       toJson: _dateTimeToTimestamp)
+  @HiveField(0)
   DateTime get time;
   @override
+  @HiveField(1)
   String get description;
   @override
+  @HiveField(2)
   String get title;
 
   /// Create a copy of NoteModel

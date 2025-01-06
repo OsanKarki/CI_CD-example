@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'note-app-a2320',
     storageBucket: 'note-app-a2320.firebasestorage.app',
   );
+
 }
